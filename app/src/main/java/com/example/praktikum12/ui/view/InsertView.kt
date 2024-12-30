@@ -1,9 +1,7 @@
 package com.example.praktikum12.ui.view
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -14,13 +12,11 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.input.KeyboardType
@@ -129,37 +125,14 @@ fun FormInput(
             enabled = enabled,
             singleLine = true
         )
-        Column {
-            Text("Jenis Kelamin", style = MaterialTheme.typography.bodyLarge)
-
-            Row(modifier = Modifier.fillMaxWidth()) {
-                Row(
-                    modifier = Modifier
-                        .padding(end = 16.dp)
-                        .clickable(enabled) {
-                            onValueChange(insertUiEvent.copy(jenisKelamin = "Laki-laki"))
-                        }
-                ) {
-                    RadioButton(
-                        selected = insertUiEvent.jenisKelamin == "Laki-laki",
-                        onClick = { onValueChange(insertUiEvent.copy(jenisKelamin = "Laki-laki")) },
-                        enabled = enabled
-                    )
-                    Text("Laki-laki", modifier = Modifier.align(Alignment.CenterVertically))
-                }
-
-                Row(modifier = Modifier.clickable(enabled) {
-                    onValueChange(insertUiEvent.copy(jenisKelamin = "Perempuan"))
-                }) {
-                    RadioButton(
-                        selected = insertUiEvent.jenisKelamin == "Perempuan",
-                        onClick = { onValueChange(insertUiEvent.copy(jenisKelamin = "Perempuan")) },
-                        enabled = enabled
-                    )
-                    Text("Perempuan", modifier = Modifier.align(Alignment.CenterVertically))
-                }
-            }
-        }
+        OutlinedTextField(
+            value = insertUiEvent.jenisKelamin,
+            onValueChange = {onValueChange(insertUiEvent.copy(jenisKelamin = it))},
+            label = { Text("Jenis Kelamin") },
+            modifier = Modifier.fillMaxWidth(),
+            enabled = enabled,
+            singleLine = true
+        )
         OutlinedTextField(
             value = insertUiEvent.alamat,
             onValueChange = {onValueChange(insertUiEvent.copy(alamat = it))},
