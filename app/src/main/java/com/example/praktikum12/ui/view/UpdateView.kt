@@ -22,11 +22,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.praktikum12.navigasi.DestinasiUpdate
 import com.example.praktikum12.ui.customwidgwt.CostumeTopAppBar
-import com.example.praktikum12.ui.view.OnError
-import com.example.praktikum12.ui.view.OnLoading
-import com.example.praktikum12.viewmodel.DetailUiState
-import com.example.praktikum12.viewmodel.InsertUiEvent
-import com.example.praktikum12.viewmodel.InsertUiState
 import com.example.praktikum12.viewmodel.PenyediaViewModel
 import com.example.praktikum12.viewmodel.UpdateUiEvent
 import com.example.praktikum12.viewmodel.UpdateUiState
