@@ -13,7 +13,16 @@ class InsertViewModel (private val mhs: MahasiswaRepository): ViewModel(){
     var uiState by mutableStateOf(InsertUiState())
         private set
 
-    fun updateInserMhsState(insertUiEvent: InsertUiEvent){
+    var mhsUIState: HomeUiState by mutableStateOf(HomeUiState.Loading)
+        private set
+
+    var mahasiswaList by mutableStateOf<List<InsertUiState>>(emptyList())
+        private set
+
+    var errorMessage by mutableStateOf<String?>(null)
+        private set
+
+    fun updateInsertMhsState(insertUiEvent: InsertUiEvent){
         uiState = InsertUiState(insertUiEvent = insertUiEvent)
     }
 
@@ -21,7 +30,32 @@ class InsertViewModel (private val mhs: MahasiswaRepository): ViewModel(){
         viewModelScope.launch{
             try {
                 mhs.insertMahasiswa(uiState.insertUiEvent.toMhs())
+                updateInsertMhsState(InsertUiEvent())
             } catch (e:Exception){
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun getMhs() {
+        viewModelScope.launch {
+            try {
+                val mahasiswaListFromRepo = mhs.getMahasiswa()
+                mahasiswaList = mahasiswaListFromRepo.map { it.toUiStateMhs() }
+                errorMessage = null
+            } catch (e: Exception) {
+                errorMessage = e.message
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun deleteMhs(nim: String, onDeleted: () -> Unit) {
+        viewModelScope.launch {
+            try {
+                mhs.deleteMahasiswa(nim)
+                onDeleted()
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
